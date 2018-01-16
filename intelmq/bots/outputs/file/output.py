@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import io
+import os
 
 from intelmq.lib.bot import Bot
 
@@ -15,6 +16,9 @@ class FileOutputBot(Bot):
         event = self.receive_message()
         event_data = event.to_json(hierarchical=self.parameters.hierarchical_output)
 
+        if not os.fstat(self.file.fileno()).st_nlink:
+            self.logger.info('File has been deleted, opening again.')
+            self.init()
         try:
             self.file.write(event_data)
             self.file.write("\n")

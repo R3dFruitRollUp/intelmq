@@ -31,12 +31,13 @@ class BotDebugger:
 
     load_configuration = utils.load_configuration
     logging_level = "DEBUG"
-    init_log_level = {"console": logging.DEBUG, "message": logging.WARNING, "process": logging.INFO, None: logging.INFO}
+    init_log_level = {"console": logging.DEBUG, "message": logging.WARNING, "process": logging.INFO}
 
     def __init__(self, runtime_configuration, bot_id, run_subcommand=None, console_type=None,
                  dryrun=None, message_kind=None, msg=None):
         self.runtime_configuration = runtime_configuration
-        self.leverageLogger(level=self.init_log_level[run_subcommand])
+        if run_subcommand:
+            self.leverageLogger(level=self.init_log_level[run_subcommand])
         module = import_module(self.runtime_configuration['module'])
         bot = getattr(module, 'BOT')
         if run_subcommand == "message":

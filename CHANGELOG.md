@@ -18,6 +18,8 @@ CHANGELOG
 ### Bots
 #### Collectors
 - bots.collectors.mail.collector_mail_attach: Support attachment file parsing for imbox versions newer than 0.9.5
+#### Outputs
+- bots.outputs.file.output: Reopen file if no links are pointing to it (i.e. the file has been deleted) (#1148)
 
 #### Parsers
 - All CSV parsers ignore NULL-bytes now, because the csv-library cannot handle it (#967)
